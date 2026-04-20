@@ -1,14 +1,13 @@
+(() => {
+
 if(window.wgLoaded){alert("Já rodando");return;}
 window.wgLoaded=true;
-
-(function(){
 
 if(document.getElementById("wg-panel")) return;
 
 let selectedText="";
 let generatedResponse="";
 
-// ===== PAINEL =====
 const panel=document.createElement("div");
 panel.id="wg-panel";
 
@@ -24,14 +23,12 @@ panel.innerHTML=`
 
 document.body.appendChild(panel);
 
-// botões
 panel.querySelectorAll("button").forEach(btn=>{
 btn.style.cssText="width:100%;padding:7px;margin-top:6px;border:none;border-radius:7px;background:#111;color:#0f0;cursor:pointer;";
 });
 
 const status=document.getElementById("wg-status");
 
-// mover
 let drag=false,ox,oy;
 
 panel.onmousedown=(e)=>{
@@ -50,20 +47,17 @@ panel.style.right="auto";
 
 document.onmouseup=()=>drag=false;
 
-// ler
 document.getElementById("wg-select").onclick=()=>{
 selectedText=window.getSelection().toString();
 status.innerText=selectedText?"OK":"Nada";
 };
 
-// responder
 document.getElementById("wg-generate").onclick=()=>{
 generatedResponse="Resposta: "+selectedText.slice(0,150);
 status.innerText="Feito";
 alert(generatedResponse);
 };
 
-// copiar
 document.getElementById("wg-copy").onclick=()=>{
 navigator.clipboard.writeText(generatedResponse);
 status.innerText="Copiado";
